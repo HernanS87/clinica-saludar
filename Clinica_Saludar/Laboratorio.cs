@@ -17,20 +17,19 @@ namespace Clinica_Saludar
 
         public int NivelComplejidad { get => nivelComplejidad; set => nivelComplejidad = value; }
 
-        public override void CalcularPrecio()
+        public override double CalcularPrecio()
         {
             double montoF;
             if (nivelComplejidad > 3)
             {
-                montoF = CantDias * 10000.00 * 1.25;
+                montoF = CantDias * 10000.00 * (1.00 + 21.00 / 200.00) * 1.25;
             }
             else
             {
-                montoF = CantDias * 10000.00;
+                montoF = CantDias * 10000.00 * (1.00 + 21.00 / 200.00);
             }
 
-            Console.WriteLine("LABORATORIO " + Nombre + ", complejidad: " + nivelComplejidad);
-            Console.WriteLine("PRECIO FINAL: $" + Math.Round(montoF, 2));
+            return Math.Round(montoF, 2);
         }
     }
 }

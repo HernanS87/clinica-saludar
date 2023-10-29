@@ -17,6 +17,6 @@ namespace Clinica_Saludar
 
         public string Nombre { get => nombre; set => nombre = value; }
 
-        public abstract void CalcularPrecio();
+        public abstract double CalcularPrecio();
     }
 }

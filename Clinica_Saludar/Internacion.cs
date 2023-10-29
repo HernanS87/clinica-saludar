@@ -12,11 +12,10 @@ namespace Clinica_Saludar
         {
         }
 
-        public override void CalcularPrecio()
+        public override double CalcularPrecio()
         {
-            double montoF = CantDias * 20000.00;
-            Console.WriteLine("INTERNACION " + Nombre);
-            Console.WriteLine("PRECIO FINAL: $" + Math.Round(montoF, 2));
+            double montoF = CantDias * 20000.00 * (1.00 + 21.00 / 200.00);
+            return Math.Round(montoF, 2);
         }
     }
 }

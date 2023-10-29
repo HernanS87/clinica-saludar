@@ -11,17 +11,19 @@ namespace Clinica_Saludar
         private double porcentajeGanancia;
         private double precioLista;
 
-        public Farmacia(string nombre, int porcentajeGanancia, double precioLista) : base(nombre)
+        public Farmacia(string nombre, double porcentajeGanancia, double precioLista) : base(nombre)
         {
-            this.porcentajeGanancia = porcentajeGanancia;
-            this.precioLista = precioLista;
+            this.PorcentajeGanancia = porcentajeGanancia;
+            this.PrecioLista = precioLista;
         }
 
-        public override void CalcularPrecio()
+        public double PorcentajeGanancia { get => porcentajeGanancia; set => porcentajeGanancia = value; }
+        public double PrecioLista { get => precioLista; set => precioLista = value; }
+
+        public override double CalcularPrecio()
         {
-            double montoF = (precioLista * (1.0 + porcentajeGanancia/100.0)) * 1.21;
-            Console.WriteLine("FARMACIA " + Nombre);
-            Console.WriteLine("PRECIO FINAL: $" + Math.Round(montoF, 2));
+            double montoF = (PrecioLista * (1.0 + PorcentajeGanancia/100.0)) * 1.21;
+            return Math.Round(montoF, 2);
         }
     }
 }
