@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Clinica_Saludar;
+using System;
 
 Console.WriteLine("Bienvenido al Sistema de Facturación de la Clínica Médica");
 List<Servicio> servicios = new List<Servicio>();
@@ -47,62 +48,137 @@ void AgregarServicio()
     int cantD;
     bool res1;
     bool res2;
+    int nivelC;
     string? servicioSelec;
+    double precioLista;
+    double ganancia;
 
-    Console.WriteLine("¿Qué tipo de servicio desea agregar? (Internacion/Laboratorio/Farmacia):");
-    servicioSelec = Console.ReadLine().ToUpper();
+    do
+    {
+        Console.WriteLine("¿Qué tipo de servicio desea agregar? (Internacion/Laboratorio/Farmacia):");
+        servicioSelec = Console.ReadLine().ToUpper();
+
+        if (!(servicioSelec == "INTERNACION" || servicioSelec == "LABORATORIO" || servicioSelec == "FARMACIA"))
+        {
+            Console.WriteLine("Servicio ingresado no válido. Ingrese el servicio desea agregar (Internacion/Laboratorio/Farmacia):");
+        }
+    } while (!(servicioSelec == "INTERNACION" || servicioSelec == "LABORATORIO" || servicioSelec == "FARMACIA"));
+    
 
     switch (servicioSelec)
     {
         case "LABORATORIO":
+            do
+            {
+                Console.WriteLine("Ingrese el nombre del servicio de laboratorio:");
+                nombre = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(nombre))
+                {
+                    Console.WriteLine("Nombre no válido. Debe ingresar un nombre.");
+                }
 
-            Console.WriteLine("Ingrese el nombre del servicio de laboratorio:");
-            nombre = Console.ReadLine();
+            } while (string.IsNullOrEmpty(nombre));
 
-            Console.WriteLine("Ingrese la cantidad de dias del servicio de laboratorio:");
-            res1 = int.TryParse(Console.ReadLine(), out cantD);
+            do
+            {
+                Console.WriteLine("Ingrese la cantidad de dias del servicio de laboratorio:");
+                res1 = int.TryParse(Console.ReadLine(), out cantD);
 
-            Console.WriteLine("Ingrese nivel de complejidad (numero del 1 al 5):");
-            int nivelC;
-            res2 = int.TryParse(Console.ReadLine(), out nivelC);
+                if (cantD <= 0)
+                {
+                    Console.WriteLine("Cantidad de días no válida. Debe ingresar un número válido mayor a 0");
+                }
+
+            } while (cantD <= 0);
+
+            do
+            {
+                Console.WriteLine("Ingrese nivel de complejidad (numero del 1 al 5):");                
+                res2 = int.TryParse(Console.ReadLine(), out nivelC);
+
+                if (nivelC < 1 || nivelC > 5)
+                {
+                    Console.WriteLine("Nivel de complejidad no válido. Debe ingresar un número válido entre 1 y 5.");
+                }
+
+            } while (nivelC < 1 || nivelC > 5);
+            
 
             servicios.Add(new Laboratorio(nombre, cantD, nivelC));
-
             Console.WriteLine("¡El servicio de LABORATORIO ha sido agregado correctamente!");
-
             break;
 
         case "INTERNACION":
 
-            Console.WriteLine("Ingrese el nombre de la especialidad:");
-            nombre = Console.ReadLine();
+            do
+            {
+                Console.WriteLine("Ingrese el nombre de la especialidad:");
+                nombre = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(nombre))
+                {
+                    Console.WriteLine("Nombre no válido. Debe ingresar un nombre.");
+                }
 
-            Console.WriteLine("Ingrese la cantidad de dias de internación:");
-            res1 = int.TryParse(Console.ReadLine(), out cantD);
+            } while (string.IsNullOrEmpty(nombre));
+
+            do
+            {
+                Console.WriteLine("Ingrese la cantidad de dias de internación:");
+                res1 = int.TryParse(Console.ReadLine(), out cantD);
+
+                if (cantD <= 0)
+                {
+                    Console.WriteLine("Cantidad de días no válida. Debe ingresar un número válido mayor a 0");
+                }
+
+            } while (cantD <= 0);
+            
 
             servicios.Add(new Internacion(nombre, cantD));
-
             Console.WriteLine("¡El servicio de INTERNACIÓN ha sido agregado correctamente!");
-
             break;
 
         case "FARMACIA":
 
-            Console.WriteLine("Ingrese el nombre del medicamento:");
-            nombre = Console.ReadLine();
+            do
+            {
+                Console.WriteLine("Ingrese el nombre del medicamento:");
+                nombre = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(nombre))
+                {
+                    Console.WriteLine("Nombre no válido. Debe ingresar un nombre.");
+                }
 
-            Console.WriteLine("Ingrese el precio de lista:");
-            double precioLista;
-            res2 = double.TryParse(Console.ReadLine(), out precioLista);
+            } while (string.IsNullOrEmpty(nombre));
 
-            Console.WriteLine("Ingrese el porcentaje de ganancia (seleccione un numero del 1 al 100):");
-            double ganancia;
-            res2 = double.TryParse(Console.ReadLine(), out ganancia);
+            do
+            {
+                Console.WriteLine("Ingrese el precio de lista:");                
+                res2 = double.TryParse(Console.ReadLine(), out precioLista);
+
+                if (precioLista <= 0)
+                {
+                    Console.WriteLine("Precio de lista no válido. Debe ingresar un número válido mayor a 0");
+                }
+
+            } while (precioLista <= 0);
+
+            do
+            {
+                Console.WriteLine("Ingrese el porcentaje de ganancia (seleccione un numero del 1 al 100):");
+                res2 = double.TryParse(Console.ReadLine(), out ganancia);
+
+                if (ganancia < 1 || ganancia > 100)
+                {
+                    Console.WriteLine("Porcentaje de ganancia no válido. Debe ingresar un número válido entre 1 y 100");
+                }
+
+            } while (ganancia < 1 || ganancia > 100);
+
+            
 
             servicios.Add(new Farmacia(nombre, ganancia, precioLista));
-
             Console.WriteLine("¡El servicio de FARMACIA ha sido agregado correctamente!");
-
             break;
         default:
             Console.WriteLine("SERCIVIO INCORRECTO");
