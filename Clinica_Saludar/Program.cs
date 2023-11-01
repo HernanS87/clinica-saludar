@@ -60,7 +60,7 @@ void AgregarServicio()
 
         if (!(servicioSelec == "INTERNACION" || servicioSelec == "LABORATORIO" || servicioSelec == "FARMACIA"))
         {
-            Console.WriteLine("Servicio ingresado no válido. Ingrese el servicio desea agregar (Internacion/Laboratorio/Farmacia):");
+            Console.WriteLine("Servicio ingresado no válido. Ingrese el servicio que desea agregar (Internacion/Laboratorio/Farmacia):");
         }
     } while (!(servicioSelec == "INTERNACION" || servicioSelec == "LABORATORIO" || servicioSelec == "FARMACIA"));
     
@@ -244,7 +244,7 @@ void CantidadServiciosSimples()
     {
         foreach (Servicio s in servicios)
         {
-            if(s.GetType().Name.ToUpper() == "LABORATORIO" && ((Laboratorio)s).NivelComplejidad < 3)
+            if(s.GetType().Name.ToUpper() == "LABORATORIO" && ((Laboratorio)s).NivelComplejidad <= 3)
             {
                 cant += 1;
             }
